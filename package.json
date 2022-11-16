@@ -1,6 +1,22 @@
 {
-  "name": "PartnerLab3",
+  "name": "partnerlab3",
   "version": "1.0.0",
-  "dependencies": {
-  }
+  "scripts": {
+    "start": "node server.js"
+  },
+  "description": "Lawn mowing buisness demo",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaaafireball/PartnerLab3.git"
+  },
+  "keywords": [
+    "demo"
+  ],
+  "author": "Adam Watson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aaaafireball/PartnerLab3/issues"
+  },
+  "homepage": "https://github.com/aaaafireball/PartnerLab3#readme"
 }
