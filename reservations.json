@@ -1,17 +1,1 @@
-[
-  {
-    "user": "abc123",
-    "reservations": [
-      {
-        "date": "02-13-20222",
-        "time": "14:30",
-        "hours": 3
-      },
-      {
-        "date": "02-11-20222",
-        "time": "16:30",
-        "hours": 7
-      }
-    ]
-  }
-]
+[{"user":"abc123","reservations":[{"id":1,"startDate":"2019-01-01T00:00:00Z","startTime":"14:00","hours":5}]}]
