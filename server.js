@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const fs = require("fs");
+const {json} = require("express");
 
 const app = express()
 app.use(cors())
@@ -115,16 +116,9 @@ app.put('/reservations/update/:user/id/:id/newDate/:date/newTime/:time/newHours/
         return;
     }
 
-    jsonCache = jsonCache.map((userObj) => {
-        if (userObj.user === user){
-            if(userObj.reservations.id === id){
-                userObj.reservations.startDate = date
-                userObj.reservations.startTime = time
-                userObj.reservations.hours = hours
-            }
-        }
-        return userObj
-    })
+    jsonCache[jsonCache.indexOf(cachedUserExists)].reservations.startDate = date
+    jsonCache[jsonCache.indexOf(cachedUserExists)].reservations.startTime = time
+    jsonCache[jsonCache.indexOf(cachedUserExists)].reservations.hours = hours
 
     console.log(jsonCache[0].reservations)
 
