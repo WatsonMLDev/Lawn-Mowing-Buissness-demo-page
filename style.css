@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'helvetica', sans-serif;
+}
+
+.title {
+    color: #F3EFE0;
+    font: 50px "helvetica"
+}
+
+.text {
+    color: #F3EFE0;
+    font: 20px "helvetica";
+    cursor: pointer;
+}
+
+.stickyHeader{
+    width: 100%;
+    height: 100vh;
+    background-position: center;
+}
+
+.logo{
+    width: 150px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.introText {
+    padding: 20px 8%;
+    text-align: center;
+    color: #F3EFE0;
+    font : 40px "helvetica";
+}
+.introTextSub {
+    padding: 20px 8%;
+    text-align: center;
+    color: #F3EFE0;
+    font : 20px "helvetica";
+}
+.textDiv{
+    background: #262322;
+}
+
+.videoEmbed{
+    width: 100%;
+    height: 720px;
+    padding: 10px 8%;
+}
+.videoDiv{
+    background: url(/images/field.jpg) no-repeat center center/cover;
+}
+nav{
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+}
+nav ul{
+    background: #262322;
+    width: 100%;
+    margin-top: 10px;
+
+}
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 20px 30px;
+    color: #F3EFE0;
+}
+nav.scrolled{
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px 8%;
+    background: #262322;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: padding 1s;
+}
+nav.scrolled ul{
+    width: auto;
+}

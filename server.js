@@ -36,7 +36,6 @@ function logJsonCache(res) {
 app.put('/addUser/:user', (req, res) => {
 
     let user = {"user": req.params.user, "reservations": []}
-    console.log(user)
     jsonCache.push(user)
     logJsonCache(res)
 
