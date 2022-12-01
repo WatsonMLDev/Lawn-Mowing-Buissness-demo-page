@@ -9,6 +9,9 @@ const port = 3000
 
 let jsonCache = null;
 try{
+    if(!(fs.existsSync("reservations.json"))){
+        fs.writeFileSync("reservations.json", "[]")
+    }
     jsonCache = JSON.parse(fs.readFileSync("reservations.json"));
 }
 catch (e) {
@@ -25,9 +28,8 @@ function logJsonCache(res) {
             console.log(error);
             return;
         }
-        res.send(`{"error": "false", "message": "successfully logged to file"}`)
+        res.send(`{"error": "false", "message": ${JSON.stringify(jsonCache)}}`)
         console.log(`Wrote to file`)
-
     })
 }
 
@@ -49,7 +51,8 @@ app.get('/getUser/:user', (req, res) => {
         res.send(`{"error": "true", "message": "user not found"}`)
         return;
     }
-    res.send(`{"error": "false", "message": "${JSON.stringify(cahchedUser)}"}`)
+
+    res.send(`{"error": "false", "message": ${JSON.stringify(cahchedUser)}}`)
 
 })
 
@@ -62,7 +65,8 @@ app.get('/reservations/get/:user', (req, res) => {
         res.send(`{"error": "true", "message": "user not found"}`)
         return;
     }
-    res.send(`{"error": "false", "message": "${JSON.stringify(cahchedUser.reservations)}"}`)
+
+    res.send(`{"error": "false", "message": ${JSON.stringify(cahchedUser.reservations)}}`)
 
 })
 
@@ -73,7 +77,8 @@ app.get('/reservations/getAll', (req, res) => {
             reservations.push(reservation)
         })
     })
-    res.send(`{"error": "false", "message": "${JSON.stringify(reservations)}"}`)
+
+    res.send(`{"error": "false", "message": ${JSON.stringify(reservations)}}`)
 
 })
 app.put('/reservations/add/:user/date/:date/time/:time/hours/:hours', (req, res) => {
@@ -81,25 +86,20 @@ app.put('/reservations/add/:user/date/:date/time/:time/hours/:hours', (req, res)
     let date = req.params.date
     let time = req.params.time
     let hours = req.params.hours
-    let cahchedUser = jsonCache.find((userObj) => {
+    let cachedUser = jsonCache.find((userObj) => {
         return userObj.user === user
     })
-    if (cahchedUser === undefined || cahchedUser === null){
+    if (cachedUser === undefined || cachedUser === null){
         res.send(`{"error": "true", "message": "user not found"}`)
         return;
     }
-    let reservation = {"id": (cahchedUser.reservations.length + 1), "date": date, "time": time, "hours": hours}
-    cahchedUser.reservations.push(reservation)
 
-    for(let i = 0; i < jsonCache.length; i++){
-        if (jsonCache[i].user === user){
-            jsonCache[i] = cahchedUser
-        }
-    }
-
-    console.log(jsonCache)
+    let reservation = {id: (cachedUser.reservations.length + 1), startDate: date, startTime: time, hours: hours}
+    let userIndex = jsonCache.indexOf(cachedUser)
+    jsonCache[userIndex].reservations.push(reservation)
 
     logJsonCache(res)
+
 })
 
 app.put('/reservations/update/:user/id/:id/newDate/:date/newTime/:time/newHours/:hours', (req, res) => {
@@ -108,25 +108,24 @@ app.put('/reservations/update/:user/id/:id/newDate/:date/newTime/:time/newHours/
     let date = req.params.date
     let time = req.params.time
     let hours = req.params.hours
-    let cachedUserExists = jsonCache.find((userObj) => {
+    let cachedUser = jsonCache.find((userObj) => {
         return userObj.user === user
     })
-    if (cachedUserExists === undefined || cachedUserExists === null){
+    if (cachedUser === undefined || cachedUser === null){
         res.send(`{"error": "true", "message": "user not found"}`)
         return;
     }
-
-    jsonCache[jsonCache.indexOf(cachedUserExists)].reservations.startDate = date
-    jsonCache[jsonCache.indexOf(cachedUserExists)].reservations.startTime = time
-    jsonCache[jsonCache.indexOf(cachedUserExists)].reservations.hours = hours
-
-    console.log(jsonCache[0].reservations)
+    let userIndex = jsonCache.indexOf(cachedUser)
+    jsonCache[userIndex].reservations[id-1].startDate = date
+    jsonCache[userIndex].reservations[id-1].startTime = time
+    jsonCache[userIndex].reservations[id-1].hours = hours
 
     logJsonCache(res)
+
 })
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Example app listening at http://127.0.0.1:${port}`)
 })
 
 
