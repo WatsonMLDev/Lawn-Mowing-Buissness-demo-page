@@ -1,0 +1,64 @@
+.loginBox {
+    width: 20%;
+    height: 25%;
+    text-align: center;
+    background: #262322 center;
+    margin: 10% auto 0;
+    padding: 3% 0 20px;
+    border-radius: 5px;
+}
+
+.loginBox label[for="userNameBox"] {
+    color: #F3EFE0;
+    font: 30px "helvetica";
+}
+
+.loginBox input {
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #262322;
+    border-radius: 5px;
+}
+
+.loginBox button {
+    width: 50%;
+    background: #5FAD41;
+    border: 0;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.loginBoxHidden {
+    display: none;
+}
+
+.reservationTable *{
+    width: 90%;
+    margin: 10% auto 0;
+    border-radius: 5px;
+    background: #262322;
+    table-layout: fixed;
+    box-shadow: 0 0 0 3px #5FAD41;
+
+}
+
+.reservationTable th {
+    color: #F3EFE0;
+    font: 30px "helvetica";
+    padding: 10px;
+}
+
+.reservationTable td {
+    color: #F3EFE0;
+    font: 20px "helvetica";
+    text-align: center;
+}
+
+.reservationTableHidden{
+    display: none;
+}
+

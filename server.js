@@ -1,7 +1,6 @@
 const express = require('express')
 const cors = require('cors')
 const fs = require("fs");
-const {json} = require("express");
 
 const app = express()
 app.use(cors())
@@ -19,16 +18,16 @@ catch (e) {
     jsonCache = []
 }
 
-function logJsonCache(res) {
+function logJsonCache(res, message) {
 
     fs.writeFile("reservations.json", JSON.stringify(jsonCache), (error) => {
         if (error) {
             res.statusCode = 500
-            res.send(`{"error": "true", "message": "Server error when logging to file: ${error}"}`)
+            res.send(`{"error": true, "message": "Server error when logging to file: ${error}"}`)
             console.log(error);
             return;
         }
-        res.send(`{"error": "false", "message": ${JSON.stringify(jsonCache)}}`)
+        res.send(`{"error": false, "message": ${message}}`)
         console.log(`Wrote to file`)
     })
 }
@@ -37,7 +36,8 @@ app.put('/addUser/:user', (req, res) => {
 
     let user = {"user": req.params.user, "reservations": []}
     jsonCache.push(user)
-    logJsonCache(res)
+
+    logJsonCache(res,JSON.stringify(user))
 
 })
 
@@ -47,37 +47,37 @@ app.get('/getUser/:user', (req, res) => {
         return userObj.user === user
     })
     if (cahchedUser === undefined || cahchedUser === null){
-        res.send(`{"error": "true", "message": "user not found"}`)
+        res.send(`{"error": true, "message": "user not found"}`)
         return;
     }
 
-    res.send(`{"error": "false", "message": ${JSON.stringify(cahchedUser)}}`)
+    res.send(`{"error": false, "message": ${JSON.stringify(cahchedUser)}}`)
 
 })
 
 app.get('/reservations/get/:user', (req, res) => {
     let user = req.params.user
-    let cahchedUser = jsonCache.find((userObj) => {
+    let cachedUser = jsonCache.find((userObj) => {
         return userObj.user === user
     })
-    if (cahchedUser === undefined || cahchedUser === null){
-        res.send(`{"error": "true", "message": "user not found"}`)
+    if (cachedUser === undefined || cachedUser === null){
+        res.send(`{"error": true, "message": "user not found"}`)
         return;
     }
 
-    res.send(`{"error": "false", "message": ${JSON.stringify(cahchedUser.reservations)}}`)
+    res.send(`{"error": false, "message": ${JSON.stringify(cachedUser.reservations)}}`)
 
 })
 
 app.get('/reservations/getAll', (req, res) => {
-    reservations = []
+    let reservations = []
     jsonCache.forEach((userObj) => {
         userObj.reservations.forEach((reservation) => {
             reservations.push(reservation)
         })
     })
 
-    res.send(`{"error": "false", "message": ${JSON.stringify(reservations)}}`)
+    res.send(`{"error": false, "message": ${JSON.stringify(reservations)}}`)
 
 })
 app.put('/reservations/add/:user/date/:date/time/:time/hours/:hours', (req, res) => {
@@ -89,7 +89,7 @@ app.put('/reservations/add/:user/date/:date/time/:time/hours/:hours', (req, res)
         return userObj.user === user
     })
     if (cachedUser === undefined || cachedUser === null){
-        res.send(`{"error": "true", "message": "user not found"}`)
+        res.send(`{"error": true, "message": "user not found"}`)
         return;
     }
 
@@ -97,7 +97,7 @@ app.put('/reservations/add/:user/date/:date/time/:time/hours/:hours', (req, res)
     let userIndex = jsonCache.indexOf(cachedUser)
     jsonCache[userIndex].reservations.push(reservation)
 
-    logJsonCache(res)
+    logJsonCache(res, JSON.stringify(jsonCache[userIndex]))
 
 })
 
@@ -111,7 +111,7 @@ app.put('/reservations/update/:user/id/:id/newDate/:date/newTime/:time/newHours/
         return userObj.user === user
     })
     if (cachedUser === undefined || cachedUser === null){
-        res.send(`{"error": "true", "message": "user not found"}`)
+        res.send(`{"error": true, "message": "user not found"}`)
         return;
     }
     let userIndex = jsonCache.indexOf(cachedUser)
@@ -119,7 +119,7 @@ app.put('/reservations/update/:user/id/:id/newDate/:date/newTime/:time/newHours/
     jsonCache[userIndex].reservations[id-1].startTime = time
     jsonCache[userIndex].reservations[id-1].hours = hours
 
-    logJsonCache(res)
+    logJsonCache(res, JSON.stringify(jsonCache[userIndex]))
 
 })
 

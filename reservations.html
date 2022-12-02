@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8" content="width=device-width">
         <title>LawnMowerGuy.com</title>
-        <link id="styleSheet" rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style/commonStyle.css">
+        <link rel="stylesheet" href="style/reservationStyle.css">
     </head>
     <body>
         <div class="stickyHeader" style="background: url(/images/field.jpg) no-repeat center center/cover;" >
@@ -16,11 +17,25 @@
                     <li>About Us</li>
                 </ul>
             </nav>
-        </div>
-        <div>
+            <div id='loginDiv' class="loginBox">
+                <label for="userNameBox">Login below:</label>
+                <input type="text" id="userNameBox" placeholder="Username">
+                <button id="loginButton" onclick="login();">Login</button>
+            </div>
 
+            <div id ="tableDiv" class="reservationTable *, reservationTableHidden">
+                <table id="loginTable">
+                    <tr>
+                        <th>Reservation Date</th>
+                        <th>Reservation Time</th>
+                        <th>Duration</th>
+                        <th>Update Reservation</th>
+                    </tr>
+                </table>
+            </div>
         </div>
 
-        <script src="htmlHelper.js" defer></script>
+        <script src="clientJs/htmlHelper.js" defer></script>
+        <script src="clientJs/reservations.js" defer></script>
     </body>
 </html>
