@@ -22,8 +22,7 @@
                 <input type="text" id="userNameBox" placeholder="Username">
                 <button id="loginButton" onclick="login();">Login</button>
             </div>
-
-            <div id ="tableDiv" class="reservationTable *, reservationTableHidden">
+            <div id="tableDiv" class="reservationTable *, reservationTableHidden">
                 <table id="loginTable">
                     <tr>
                         <th>Reservation Date</th>
@@ -32,6 +31,11 @@
                         <th>Update Reservation</th>
                     </tr>
                 </table>
+            </div>
+            <div id="updateReservation" class="updateBox *">
+                <input type="datetime-local" id="newDate" value="2022-01-01T00:00">
+                <input type="text" id="newHours" placeholder="Hours">
+                <button onclick="updateReservation();">Update</button>
             </div>
         </div>
 

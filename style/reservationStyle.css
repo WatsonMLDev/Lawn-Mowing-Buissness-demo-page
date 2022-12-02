@@ -62,3 +62,43 @@
     display: none;
 }
 
+.updateBox {
+    width: 20%;
+    height: 25%;
+    text-align: center;
+    background: #262322 center;
+    margin: 10% auto 0;
+    padding: 3% 0 20px;
+    border-radius: 5px;
+}
+
+.updateBox input[type="datetime-local"]{
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #262322;
+    border-radius: 5px;
+}
+.updateBox input[type="text"]{
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #262322;
+    border-radius: 5px;
+}
+.updateBox button {
+    width: 50%;
+    background: #5FAD41;
+    border: 0;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.updateBoxHidden {
+    display: none;
+}
+
