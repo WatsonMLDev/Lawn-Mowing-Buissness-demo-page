@@ -123,6 +123,23 @@ app.put('/reservations/update/:user/id/:id/newDate/:date/newTime/:time/newHours/
 
 })
 
+app.delete('/reservations/delete/:user/id/:id', (req, res) => {
+    let user = req.params.user
+    let id = req.params.id
+    let cachedUser = jsonCache.find((userObj) => {
+        return userObj.user === user
+    })
+    if (cachedUser === undefined || cachedUser === null){
+        res.send(`{"error": true, "message": "user not found"}`)
+        return;
+    }
+    let userIndex = jsonCache.indexOf(cachedUser)
+    jsonCache[userIndex].reservations.splice(id-1, 1)
+
+    logJsonCache(res, JSON.stringify(jsonCache[userIndex]))
+
+})
+
 app.listen(port, () => {
     console.log(`Example app listening at http://127.0.0.1:${port}`)
 })

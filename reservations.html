@@ -13,7 +13,7 @@
                 <ul id="menu">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="reservations.html">Make Reservation</a></li>
-                    <li>Availability</li>
+                    <li><a href="currentReservations.html">Current Reservations</a></li>
                     <li>About Us</li>
                 </ul>
             </nav>
@@ -31,11 +31,27 @@
                         <th>Update Reservation</th>
                     </tr>
                 </table>
+                <button id="addReservationButton" onclick="showAddForm();">Add Reservation</button>
             </div>
-            <div id="updateReservation" class="updateBox *">
+            <div id="updateReservation" class="updateBox *, updateBoxHidden">
+                <label for="newDate">New Reservation Date:</label>
+                <br>
                 <input type="datetime-local" id="newDate" value="2022-01-01T00:00">
+                <br>
+                <label for="newHours">New Duration:</label>
+                <br>
                 <input type="text" id="newHours" placeholder="Hours">
                 <button onclick="updateReservation();">Update</button>
+            </div>
+            <div id="addReservation" class="addBox *, addBoxHidden">
+                <label for="addDate">Reservation Date:</label>
+                <br>
+                <input type="datetime-local" id="addDate" value="2022-01-01T00:00">
+                <br>
+                <label for="addHours">Duration:</label>
+                <br>
+                <input type="text" id="addHours" placeholder="Hours">
+                <button onclick="addReservation();">Add</button>
             </div>
         </div>
 

@@ -43,6 +43,7 @@
     background: #262322;
     table-layout: fixed;
     box-shadow: 0 0 0 3px #5FAD41;
+    text-align: center;
 
 }
 
@@ -58,16 +59,53 @@
     text-align: center;
 }
 
+.reservationTable div {
+    color: #F3EFE0;
+    font: 20px "helvetica";
+    text-align: center;
+    margin: auto;
+}
+
+.reservationTable button[id = "addReservationButton"] {
+
+    display: flex;
+    width: 50%;
+    height: 100%;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 1% auto 0;
+    background: #5FAD41;
+    box-shadow: 0 0 0 3px #262322;
+    justify-content: center;
+}
+
+.reservationTable table button{
+    width: 50%;
+    height: 100%;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: auto;
+    box-shadow: 0 0 0 3px #262322;
+}
+.buttonGreen {
+    background: #5FAD41;
+}
+.buttonRed {
+    background: #FF0000;
+}
+
+
 .reservationTableHidden{
     display: none;
 }
 
 .updateBox {
     width: 20%;
-    height: 25%;
+    height: 35%;
     text-align: center;
     background: #262322 center;
-    margin: 10% auto 0;
+    margin: 8% auto 0;
     padding: 3% 0 20px;
     border-radius: 5px;
 }
@@ -98,7 +136,60 @@
     border-radius: 5px;
 }
 
+.updateBox label{
+    color: #F3EFE0;
+    font: 30px "helvetica";
+}
+
 .updateBoxHidden {
     display: none;
 }
+
+.addBox {
+    width: 20%;
+    height: 35%;
+    text-align: center;
+    background: #262322 center;
+    margin: 8% auto 0;
+    padding: 3% 0 20px;
+    border-radius: 5px;
+}
+
+.addBox input[type="datetime-local"]{
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #262322;
+    border-radius: 5px;
+}
+
+.addBox input[type="text"]{
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #262322;
+    border-radius: 5px;
+}
+
+.addBox button {
+    width: 50%;
+    background: #5FAD41;
+    border: 0;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.addBox label{
+    color: #F3EFE0;
+    font: 30px "helvetica";
+}
+
+.addBoxHidden {
+    display: none;
+}
+
 

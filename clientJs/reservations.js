@@ -58,7 +58,7 @@ function login(){
             let newTr = document.createElement("tr");
 
             let newTd = document.createElement("td");
-            newTd.innerHTML = reservation.startDate
+            newTd.innerHTML = (new Date(reservation.startDate)).toLocaleDateString()
             newTr.appendChild(newTd)
             newTd = document.createElement("td");
             newTd.innerHTML = reservation.startTime
@@ -67,11 +67,21 @@ function login(){
             newTd.innerHTML = reservation.hours
             newTr.appendChild(newTd)
 
+            let buttonDiv = document.createElement("div")
             let newUpdateButton = document.createElement("button")
             newUpdateButton.innerHTML = "Update"
             newUpdateButton.onclick = showUpdateForm
             newUpdateButton.value = reservation.id
-            newTr.appendChild(newUpdateButton)
+            newUpdateButton.classList.add("buttonGreen")
+            buttonDiv.appendChild(newUpdateButton)
+            let newDeleteButton = document.createElement("button")
+            newDeleteButton.innerHTML = "Delete"
+            newDeleteButton.onclick = deleteReservation
+            newDeleteButton.value = reservation.id
+            newDeleteButton.classList.add("buttonRed")
+            buttonDiv.appendChild(newDeleteButton)
+
+            newTr.appendChild(buttonDiv)
 
             table.appendChild(newTr);
         })
@@ -82,7 +92,7 @@ function showUpdateForm(){
     let id = this.value
     currentResId = id
     document.querySelector('#tableDiv').classList.add('reservationTableHidden')
-    // document.querySelector('#updateReservation').classList.remove('updateBoxHidden')
+    document.querySelector('#updateReservation').classList.remove('updateBoxHidden')
 
     let res = currentUser.reservations.find((reservation) => {
         return reservation.id === parseInt(id)
@@ -97,7 +107,7 @@ function updateReservation(){
     let time =  ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2)
 
     let request = new XMLHttpRequest();
-    request.open("PUT", `http://127.0.0.1:3000/reservations/update/${currentUser.user}/id/${currentResId}/newDate/${date}/newTime/${time}/newHours/${hours}`, true);
+    request.open("PUT", `http://127.0.0.1:3000/reservations/update/${currentUser.user}/id/${currentResId}/newDate/${date.toISOString()}/newTime/${time}/newHours/${hours}`, true);
     request.send()
     request.onload = function () {
         if (request.status < 200 && request.status >= 400) {
@@ -108,10 +118,64 @@ function updateReservation(){
         let response = JSON.parse(this.response)
         if(response.error){
             alert(response.message)
-        }else{
-            document.querySelector('#tableDiv').classList.remove('reservationTableHidden')
-            document.querySelector('#updateReservation').classList.add('updateBoxHidden')
-            login()
+            return;
         }
+        currentUser = response.message
+        document.querySelector('#tableDiv').classList.remove('reservationTableHidden')
+        document.querySelector('#updateReservation').classList.add('updateBoxHidden')
+        login()
+
+    }
+}
+
+function deleteReservation(){
+    let id = this.value
+    let request = new XMLHttpRequest();
+    request.open("DELETE", `http://localhost:3000/reservations/delete/${currentUser.user}/id/${id}`, true);
+    request.send()
+    request.onload = function () {
+        if (request.status < 200 && request.status >= 400) {
+            console.log(`Error ${request.status}: ${request.statusText}`);
+            return;
+        }
+
+        let response = JSON.parse(this.response)
+        if(response.error){
+            alert(response.message)
+            return;
+        }
+        currentUser = response.message
+        login()
+    }
+}
+
+function showAddForm(){
+    document.querySelector('#tableDiv').classList.add('reservationTableHidden')
+    document.querySelector('#addReservation').classList.remove('addBoxHidden')
+}
+
+function addReservation(){
+    let date = new Date(document.querySelector('#addDate').value)
+    let hours = document.querySelector('#addHours').value
+    let time =  ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2)
+
+    let request = new XMLHttpRequest();
+    request.open("PUT", `http://localhost:3000/reservations/add/${currentUser.user}/date/${date.toISOString()}/time/${time}/hours/${hours}`, true);
+    request.send()
+    request.onload = function () {
+        if (request.status < 200 && request.status >= 400) {
+            console.log(`Error ${request.status}: ${request.statusText}`);
+            return;
+        }
+
+        let response = JSON.parse(this.response)
+        if(response.error){
+            alert(response.message)
+            return;
+        }
+        currentUser = response.message
+        document.querySelector('#tableDiv').classList.remove('reservationTableHidden')
+        document.querySelector('#addReservation').classList.add('addBoxHidden')
+        login()
     }
 }

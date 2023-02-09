@@ -1,0 +1,29 @@
+.availabilityTable *{
+    width: 90%;
+    margin: 5% auto 0;
+    border-radius: 5px;
+    background: #262322;
+    table-layout: fixed;
+    box-shadow: 0 0 0 3px #5FAD41;
+    text-align: center;
+}
+
+.availabilityTable label[for="availabilityTable"] {
+    display: flex;
+    color: #F3EFE0;
+    font: 30px "helvetica";
+    padding: 10px;
+    justify-content: center;
+}
+
+.availabilityTable th {
+    color: #F3EFE0;
+    font: 30px "helvetica";
+    padding: 10px;
+}
+
+.availabilityTable td {
+    color: #F3EFE0;
+    font: 20px "helvetica";
+    text-align: center;
+}
